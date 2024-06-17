@@ -1,61 +1,62 @@
 
-import prompt from "prompt-sync";
-let ler = prompt();
+import prompt from 'prompt-sync'
+let ler = prompt()
 
 
+import { lerDeposito, lerSaque, lerExtrato, lerJurosComp } from "./financeiro.js";
+import { banner, verm, ama, ver, azul, cia, mage, bra, pre, fundPre, fundVer, fundAma, fundVerm, fundAzu, fundCia, fundMag, fundBra, } from './exibir.js';
 
-import { lerDeposito, lerSaque, lerExtrato } from "./financeiro.js";
-
-
-function lerEntrada() {
-    return Number(ler())
-}
-
-export function exibirMenu() {
-    console.log(`MENU PRINCIPAL: `);
-    console.log(`
+function exibirMenu() {
+    const menu = `
+    MENU PRINCIPAL:
+    
     1 – DEPOSITAR
     2 – SAQUE
     3 – EXTRATO
-    4 - ENCERRAR APLICAÇÃO `);
-
+    4 - SIMULAÇÃO DE INVESTIMENTO 
+    5 - ENCERRAR APLICAÇÃO
+    `;
+    console.log(azul, menu);
 }
 
-
 export function exibirOpcoes() {
-    let opcEscolha;
-    do {
+    let continuar = true;
+    while (continuar) {
+        banner();
         exibirMenu();
-        console.log();
-        opcEscolha = lerEntrada();
+        let opcEscolha = Number(ler("Escolha uma opção: "));
 
         if (opcEscolha === 1) {
             console.clear();
-            console.log("Quanto irá depositar?");
-            let saldo = lerDeposito();
-            let totalSaldo = 0;
-            for (let i = 0; i < saldo.length; i++) {
-                totalSaldo += saldo[i];
-            }
-            console.log(`Saldo atual: ${totalSaldo}`);
+            banner();
+            lerDeposito();
         } else if (opcEscolha === 2) {
             console.clear();
-            console.log("Quanto irá sacar?");
-            let saldo = lerSaque();
-            let totalSaldo = 0;
-            for (let i = 0; i < saldo.length; i++) {
-                totalSaldo += saldo[i];
-            }
-            console.log(`Saldo atual: ${totalSaldo}`);
-            console.log(ler());
+            banner();
+            lerSaque();
         } else if (opcEscolha === 3) {
+            banner();
             console.clear();
-            let extrato = lerExtrato();
-            console.log("Seu extrato bancário é:" + extrato);
+            lerExtrato();
+            console.log(fundCia, 'Aperte ENTER para contiuar');
+            ler();
         } else if (opcEscolha === 4) {
-            console.log("Operação encerrada.");
+            console.clear();
+            banner();
+            let C = Number(ler('Qual seu Capital?: '));
+            let i = Number(ler('Quanto está a taxa de juros?: '));
+            let t = Number(ler('Em quanto tempo deseja guardar?: '));
+            let resultado = lerJurosComp(C, i, t);
+            console.log(fundAma, `Em ${t} anos, seu acumulo será de ${resultado.toFixed(5)}`);
+            console.log(fundAma, 'Aperte enter para contiuar');
+            ler();
+} else if (opcEscolha === 5) {
+            console.clear();
+            banner();
+            console.log(fundCia, "Operação encerrada.");
+            continuar = false;
         } else {
             console.log("Opção inválida.");
         }
-    } while (opcEscolha !== 4);
+    }
 }
