@@ -1,81 +1,65 @@
 
-import prompt from "prompt-sync";
-let ler = prompt();
+import prompt from 'prompt-sync'
+let ler = prompt()
 
+import { banner, verm, ama, ver, azul, cia, mage, bra, pre, fundPre, fundVer, fundAma, fundVerm, fundAzu, fundCia, fundMag, fundBra, } from './exibir.js';
 
-function lerSaldo() {
-    let saldo = [];
-    return saldo
-}
+let saldo = 0;
 
 export function lerDeposito() {
     let continuar = true;
-    let deposito = 0;
-    let saldo = lerSaldo();
 
-    do {
-        console.log("Digite 'c' para cancelar: \n");
-        let depositar = ler();
+    while (continuar) {
+        console.log(ver, "Digite o valor a ser depositado ou 'c' para cancelar: \n");
+        let deposito = ler();
 
-        if (depositar.toLowerCase() === 'c') {
+        if (deposito.toLowerCase() === 'c') {
             continuar = false;
-        } else{
-            depositar = Number(depositar);
-            if (!isNaN(depositar) && depositar > 0) {
-                deposito += depositar;
-                saldo.push(deposito);
+        } else {
+            deposito = Number(deposito);
+            if (!isNaN(deposito) && deposito > 0) {
+                saldo += deposito;
+                console.log(fundVer, Valor depositado: ${deposito});
             } else {
-                console.log('Valor inválido.');
+                console.log(ama, "Valor inválido.");
             }
         }
-
-    }while (continuar);
-
+    }
     return saldo;
 }
 
-export function lerSaque(saque) {
+export function lerSaque() {
     let continuar = true;
-    let saldo = lerDeposito();
 
-    do {
-        console.log("Digite o valor a ser sacado ou 'c' para cancelar: \n");
-        let saques = ler();
+    while (continuar) {
+        console.log(verm, "Digite o valor a ser sacado ou 'c' para cancelar: \n");
+        let saque = ler();
 
-        if (saques.toLowerCase() === 'c') {
+        if (saque.toLowerCase() === 'c') {
             continuar = false;
         } else {
-            saques = Number(saques);
-            if (!isNaN(saques) && saques > 0) {
-                let totalSaldo = 0;
-                for (let i = 0; i < saldo.length; i++) {
-                    totalSaldo += saldo[i];
-                } if (saques <= totalSaldo) {
-                    saldo.push(-saques);
+            saque = Number(saque);
+            if (!isNaN(saque) && saque > 0) {
+                if (saque <= saldo) {
+                    saldo -= saque;
+                    console.log(fundVerm, Valor sacado: ${saque});
                 } else {
-                    console.log("Saldo insuficiente.");
+                    console.log(fundVerm, "Saldo insuficiente.");
                 }
             } else {
-                console.log("Valor inválido.");
+                console.log(ama, "Valor inválido.");
             }
         }
-    } while (continuar);
+    }
 
     return saldo;
 }
 
 export function lerExtrato() {
-    let continuar = true;
-    do {
-        console.log("Digite 'c' para voltar: \n");
-        let voltar = ler();
-        if (saques.toLowerCase() === 'c') {
-            let extrato = lerDeposito();
-            continuar = false;
-        } else {
-            console.log("Valor inválido.");
-        }
-    } while (continuar);
-    
-    return extrato
+    console.log(fundAma, Seu saldo atual é: ${saldo});
+}
+
+export function lerJurosComp(C, i, t) {
+    let M = C * Math.pow(( 1 + ( i / 100 )), t)
+    return M
 }
