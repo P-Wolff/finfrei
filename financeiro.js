@@ -19,7 +19,7 @@ export function lerDeposito() {
             deposito = Number(deposito);
             if (!isNaN(deposito) && deposito > 0) {
                 saldo += deposito;
-                console.log(fundVer, Valor depositado: ${deposito});
+                console.log(fundVer, `Valor depositado: ${deposito}`);
             } else {
                 console.log(ama, "Valor inválido.");
             }
@@ -42,7 +42,7 @@ export function lerSaque() {
             if (!isNaN(saque) && saque > 0) {
                 if (saque <= saldo) {
                     saldo -= saque;
-                    console.log(fundVerm, Valor sacado: ${saque});
+                    console.log(fundVerm, `Valor sacado: ${saque}`);
                 } else {
                     console.log(fundVerm, "Saldo insuficiente.");
                 }
@@ -56,7 +56,7 @@ export function lerSaque() {
 }
 
 export function lerExtrato() {
-    console.log(fundAma, Seu saldo atual é: ${saldo});
+    console.log(fundAma, `Seu saldo atual é: ${saldo}`);
 }
 
 export function lerJurosComp(C, i, t) {
